@@ -34,12 +34,7 @@ func readLines(path string) ([]int, error) {
 	return ret, scanner.Err()
 }
 
-func main() {
-	data, err := readLines("./input.txt")
-	if err != nil {
-		log.Fatal(err)
-	}
-
+func partOne(data []int) {
 	var (
 		first, second int
 	)
@@ -57,4 +52,39 @@ outer:
 	}
 
 	log.Printf("first %d; second %d; mul %d", first, second, first*second)
+}
+
+func partTwo(data []int) {
+	var (
+		first, second, third int
+	)
+
+outer:
+	for idx := range data {
+		first = data[idx]
+
+		for j := idx + 1; j < len(data); j++ {
+			second = data[j]
+
+			for k := j + 1; k < len(data); k++ {
+				third = data[k]
+
+				if first+second+third == 2020 {
+					break outer
+				}
+			}
+		}
+	}
+
+	log.Printf("first %d; second %d; third %d; mul %d", first, second, third, first*second*third)
+}
+
+func main() {
+	data, err := readLines("./input.txt")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	partOne(data)
+	partTwo(data)
 }
